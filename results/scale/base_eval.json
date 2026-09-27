@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.6975,
+  "adapter": "base",
+  "label": "base",
+  "loss": 0.6016239929199219,
+  "mean_chosen_score": -2.228843078613281,
+  "mean_margin": 0.7813168334960937,
+  "mean_rejected_score": -3.0101678466796873,
+  "n_pairs": 800
+}

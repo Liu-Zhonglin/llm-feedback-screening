@@ -1,0 +1,49 @@
+dataset:
+  language: en
+  min_review_count: 2
+  name: OpenAssistant/oasst1
+  split: train
+mechanism:
+  enforcement_cost: 0.2
+  gamma_unverified_net: 0.4
+  gamma_verified: 4.0
+  lambda_high: 0.5
+  n_users: 20000
+  participation_cost: 0.2
+  penalty: 0.25
+  phi_high: 0.3
+  phi_low: 0.8
+  strict_slack: 0.001
+  unverified_harmful_weight: 0.25
+  verification_cost: 0.05
+  verification_rate: 0.3
+  verifier_fpr: 0.2
+  verifier_tpr: 0.6
+model:
+  attn_implementation: sdpa
+  batch_size: 2
+  beta: 0.5
+  dtype: float16
+  gradient_accumulation_steps: 8
+  gradient_checkpointing: true
+  learning_rate: 5.0e-05
+  lora_alpha: 32
+  lora_dropout: 0.05
+  lora_r: 16
+  max_eval_pairs: 800
+  max_length: 256
+  max_steps: 100
+  max_train_examples: 1000
+  name: Qwen/Qwen2.5-0.5B-Instruct
+  num_workers: 4
+  target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+seed: 42
+types:
+  bootstrap_repetitions: 300
+  confidence_level: 0.95
+  min_items_per_contributor: 3
+  mixture_components: 2

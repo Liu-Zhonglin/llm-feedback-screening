@@ -1,0 +1,61 @@
+# Experiment Protocol
+
+## Data
+
+We use the English assistant responses in OpenAssistant Conversations. We retain responses that are:
+
+- reviewed (`review_result=True`);
+- not deleted;
+- not synthetic;
+- assigned a rank;
+- written in English.
+
+A response is labeled helpful when it is the top-ranked response for its prompt.
+
+We estimate contributor reliability by leave-one-out helpfulness. Contributors with at least three items are clustered into high- and low-reliability groups using a two-component Gaussian mixture. The estimated helpfulness probabilities are approximately:
+
+- high type: `eta_H = 0.540` with 95% CI `[0.523, 0.566]`;
+- low type: `eta_L = 0.282` with 95% CI `[0.268, 0.297]`.
+
+## Policies
+
+- **Oracle:** all feedback is helpful. This is an upper benchmark.
+- **Normal screening:** only high-type contributors participate.
+- **Reverse screening:** only low-type contributors participate.
+- **Verified pooling:** all contributors participate; verification uses `rho=0.30`, TPR `0.80`, FPR `0.10`; unverified harmful feedback receives weight `0.25`.
+- **Unverified pooling:** all contributors participate with no verification.
+
+Helpful feedback preserves the observed preference ordering. Harmful feedback reverses it. Every policy receives the same number of accepted preference pairs.
+
+## Training
+
+The pilot uses `Qwen/Qwen2.5-0.5B-Instruct`; confirmation uses `Qwen/Qwen2.5-1.5B-Instruct`.
+
+- DPO with length-normalized log probabilities;
+- LoRA rank 16, alpha 32, dropout 0.05;
+- learning rate `5e-5`;
+- beta `0.5`;
+- maximum sequence length 256;
+- batch size 2;
+- 2,000 accepted pairs and 300 optimizer steps per run.
+
+We train ten seeds (`42`-`51`) for every policy at both scales.
+
+## Evaluation
+
+All adapters are evaluated on the same 800 held-out preference pairs. Preference accuracy is the fraction of pairs for which the chosen response receives a higher mean log-probability than the rejected response.
+
+Confidence intervals are computed across seeds. Paired comparisons use differences on common seeds.
+
+## Verification-noise ablation
+
+The 0.5B experiment is repeated with five seeds under:
+
+- perfect verification: TPR `1.0`, FPR `0.0`;
+- standard verification: TPR `0.8`, FPR `0.1`;
+- noisy verification: TPR `0.6`, FPR `0.2`;
+- uninformative verification: TPR `0.5`, FPR `0.5`.
+
+## Limitations
+
+Participation and enforcement are simulated because the public data do not contain randomized platform policies. Harmful feedback is represented by preference inversion rather than observed fraud or spam. The experiment does not estimate sanction-exposure or cost parameters. DPO is an analogue of the aggregation channel rather than a literal implementation of token-level log-linear aggregation.

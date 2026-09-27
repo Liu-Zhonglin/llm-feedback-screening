@@ -1,0 +1,6 @@
+policy,seeds,helpful_share_mean,response_nll_mean,response_nll_std,preference_accuracy_mean,preference_accuracy_std
+normal_screening,10,0.59655,,,0.709,0.0072839244611374
+oracle,10,1.0,,,0.719375,0.008020156897883372
+pooling_unverified,10,0.4085,,,0.697375,0.003030516090994653
+pooling_verified,10,0.46864999999999996,,,0.699875,0.004945887741908001
+reverse_screening,10,0.3352,,,0.692875,0.0022087263801164377
