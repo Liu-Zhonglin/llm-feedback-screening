@@ -226,10 +226,10 @@ def main() -> None:
             "ytick.labelsize": 8,
         }
     )
-    fig, axes = plt.subplots(2, 2, figsize=(11.0, 7.2))
+    fig, axes = plt.subplots(2, 1, figsize=(5.0, 6.4))
 
     # (a) Analytical regime boundary.
-    ax = axes[0, 0]
+    ax = axes[0]
     ax.imshow(
         regime_code,
         origin="lower",
@@ -252,91 +252,16 @@ def main() -> None:
     ax.annotate("reverse point", (0.90, 0.10), xytext=(0.72, 0.25), fontsize=8)
     ax.text(0.30, 1.35, "normal\nscreening", ha="center", va="center", fontsize=8)
     ax.text(1.25, 0.35, "reverse\nscreening", ha="center", va="center", fontsize=8)
+    ax.text(0.52, 0.47, "boundary", rotation=32, fontsize=8, color="#222222")
     ax.set_xlim(0.0, 1.6)
     ax.set_ylim(0.0, 1.6)
     ax.set_xlabel(r"High-type exposure $\phi_H$")
     ax.set_ylabel(r"Low-type exposure $\phi_L$")
-    ax.text(
-        0.52,
-        0.47,
-        "boundary",
-        rotation=32,
-        fontsize=8,
-        color="#222222",
-    )
-    ax.set_title("(a) Regime boundary under calibrated types")
+    ax.set_title("(a) Screening regimes")
     ax.legend(loc="upper left", frameon=False)
 
-    # (b) Participation as high-type exposure crosses the boundary.
-    ax = axes[0, 1]
-    ax.plot(
-        crossing["phi_H"],
-        crossing["high_participation"],
-        color="#1f6f8b",
-        linewidth=1.6,
-        label="High type",
-    )
-    ax.plot(
-        crossing["phi_H"],
-        crossing["low_participation"],
-        color="#c46a1d",
-        linewidth=1.6,
-        linestyle="--",
-        label="Low type",
-    )
-    ax.axvline(phi_H_star, color="#333333", linewidth=1.0, linestyle=":")
-    ax.text(
-        phi_H_star + 0.03,
-        0.53,
-        r"boundary $\phi_H^*$",
-        rotation=90,
-        va="center",
-        fontsize=8,
-    )
-    ax.set_xlim(float(phi_H_grid[0]), float(phi_H_grid[-1]))
-    ax.set_ylim(-0.05, 1.05)
-    ax.set_xlabel(r"High-type exposure $\phi_H$")
-    ax.set_ylabel("Participation probability")
-    ax.set_title(r"(b) Screening direction at $P\rho=0.075$")
-    ax.legend(loc="center right", frameon=False)
-
-    # (c) Policy intensity under fixed reward slack.
-    ax = axes[1, 0]
-    for scenario, color in [("normal", "#14532d"), ("reverse", "#7f1d1d")]:
-        frame = intensity.loc[intensity["scenario"] == scenario]
-        ax.plot(
-            frame["p_rho"],
-            frame["high_participation"],
-            color=color,
-            linewidth=1.5,
-            linestyle="-",
-            label=f"{scenario}: H",
-        )
-        ax.plot(
-            frame["p_rho"],
-            frame["low_participation"],
-            color=color,
-            linewidth=1.5,
-            linestyle="--",
-            label=f"{scenario}: L",
-        )
-    ax.set_xlim(0.0, 0.30)
-    ax.set_ylim(-0.05, 1.05)
-    ax.set_xlabel(r"Screening intensity $P\rho$")
-    ax.set_ylabel("Participation probability")
-    ax.set_title("(c) Policy intensity with fixed reward slack")
-    ax.annotate(
-        "pooling",
-        xy=(0.015, 1.0),
-        xytext=(0.035, 0.88),
-        arrowprops={"arrowstyle": "->", "linewidth": 0.8, "color": "#333333"},
-        fontsize=8,
-        color="#333333",
-    )
-    ax.legend(ncol=2, loc="lower left", frameon=False)
-
-    # (d) Accepted composition and helpfulness as exposure crosses the boundary.
-    ax = axes[1, 1]
+    # (b) Accepted composition and helpfulness as exposure crosses the boundary.
+    ax = axes[1]
     ax.plot(
         crossing["phi_H"],
         crossing["accepted_high_share"],
@@ -350,14 +275,14 @@ def main() -> None:
         color="#6b4c9a",
         linewidth=1.7,
         linestyle="--",
-        label="Accepted helpfulness",
+        label="Training-weighted helpfulness",
     )
     ax.axvline(phi_H_star, color="#333333", linewidth=1.0, linestyle=":")
     ax.set_xlim(float(phi_H_grid[0]), float(phi_H_grid[-1]))
     ax.set_ylim(0.0, 1.0)
     ax.set_xlabel(r"High-type exposure $\phi_H$")
-    ax.set_ylabel("Accepted feedback composition")
-    ax.set_title(r"(d) Composition at $P\rho=0.075$")
+    ax.set_ylabel("Composition")
+    ax.set_title(r"(b) Accepted composition at $P\rho=0.075$")
     ax.legend(loc="center right", frameon=False)
 
     fig.tight_layout()
