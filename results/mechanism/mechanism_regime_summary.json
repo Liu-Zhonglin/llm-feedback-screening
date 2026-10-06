@@ -1,0 +1,23 @@
+{
+  "boundary_phi_H": 1.2478713038775606,
+  "eta_H": 0.5399818949909475,
+  "eta_L": 0.2824457593688363,
+  "lambda_high": 0.5,
+  "p_rho_main": 0.075,
+  "phi_L_fixed": 0.8,
+  "reward_slack_for_intensity_panel": 0.08,
+  "rho": 0.3,
+  "scenario_specs": {
+    "normal": {
+      "phi_H": 0.3,
+      "phi_L": 0.8
+    },
+    "reverse": {
+      "phi_H": 0.9,
+      "phi_L": 0.1
+    }
+  },
+  "unverified_harmful_weight": 0.25,
+  "verifier_fpr": 0.1,
+  "verifier_tpr": 0.8
+}

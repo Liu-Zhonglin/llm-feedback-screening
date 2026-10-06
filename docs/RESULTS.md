@@ -153,9 +153,9 @@ The effect is modest but consistent enough to justify scaling. It is not yet evi
 
 Artifacts:
 
-- `pilot_results/hpc_dpo_matrix5_300/summary_summary.csv`
-- `pilot_results/hpc_dpo_matrix5_300/comparison.csv`
-- `pilot_results/hpc_dpo_matrix5_300/summary.png`
+- `results/scale/summary_summary.csv`
+- `results/scale/analysis/paired_comparisons.csv`
+- `figures/fig_scale_comparison.png`
 
 
 ## 8. Ten-seed HPC scaling and verification-noise ablation
@@ -222,7 +222,7 @@ Scale comparison:
 
 Artifacts:
 
-- `pilot_results/hpc_dpo_confirm_1p5b_300/analysis/policy_summary.csv`
-- `pilot_results/hpc_dpo_confirm_1p5b_300/analysis/paired_comparisons.csv`
-- `pilot_results/scale_comparison/scale_comparison.csv`
-- `pilot_results/scale_comparison/scale_comparison.png`
+- `results/confirm_1p5b/analysis/policy_summary.csv`
+- `results/confirm_1p5b/analysis/paired_comparisons.csv`
+- `results/scale/scale_delta_comparison.csv`
+- `figures/fig_scale_comparison.png`

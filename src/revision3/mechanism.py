@@ -49,6 +49,105 @@ def participation_threshold(
     return participation_cost + phi * penalty * rho * (1.0 - eta)
 
 
+def screening_regime(
+    *,
+    eta_H: float,
+    eta_L: float,
+    phi_H: float,
+    phi_L: float,
+    rtol: float = 1e-10,
+    atol: float = 1e-12,
+) -> str:
+    """Classify the screening region implied by effective sanction exposure."""
+    exposure_H = phi_H * (1.0 - eta_H)
+    exposure_L = phi_L * (1.0 - eta_L)
+    if np.isclose(exposure_H, exposure_L, rtol=rtol, atol=atol):
+        return "boundary"
+    return "normal" if exposure_H < exposure_L else "reverse"
+
+
+def boundary_phi_H(
+    *,
+    eta_H: float,
+    eta_L: float,
+    phi_L: float,
+) -> float:
+    """Return the high-type exposure that places the system on the boundary."""
+    return phi_L * (1.0 - eta_L) / (1.0 - eta_H)
+
+
+def expected_training_mass(
+    *,
+    eta: float,
+    participation: float,
+    rho: float,
+    verifier_tpr: float,
+    verifier_fpr: float,
+    unverified_harmful_weight: float,
+) -> float:
+    """Expected retained training mass for one type after verification."""
+    helpful_retained = eta * (1.0 - rho * verifier_fpr)
+    harmful_retained = (
+        (1.0 - eta)
+        * (1.0 - rho * verifier_tpr)
+        * unverified_harmful_weight
+    )
+    return float(participation * (helpful_retained + harmful_retained))
+
+
+def expected_accepted_metrics(
+    *,
+    eta_H: float,
+    eta_L: float,
+    lambda_high: float,
+    high_participation: float,
+    low_participation: float,
+    rho: float,
+    verifier_tpr: float,
+    verifier_fpr: float,
+    unverified_harmful_weight: float,
+) -> tuple[float, float]:
+    """Return accepted high-type share and accepted helpfulness."""
+    mass_H = expected_training_mass(
+        eta=eta_H,
+        participation=high_participation,
+        rho=rho,
+        verifier_tpr=verifier_tpr,
+        verifier_fpr=verifier_fpr,
+        unverified_harmful_weight=unverified_harmful_weight,
+    ) * lambda_high
+    mass_L = expected_training_mass(
+        eta=eta_L,
+        participation=low_participation,
+        rho=rho,
+        verifier_tpr=verifier_tpr,
+        verifier_fpr=verifier_fpr,
+        unverified_harmful_weight=unverified_harmful_weight,
+    ) * (1.0 - lambda_high)
+    total_mass = mass_H + mass_L
+    if total_mass <= 0.0:
+        return float("nan"), float("nan")
+
+    helpful_H = lambda_high * high_participation * eta_H * (1.0 - rho * verifier_fpr)
+    helpful_L = (1.0 - lambda_high) * low_participation * eta_L * (1.0 - rho * verifier_fpr)
+    harmful_H = (
+        lambda_high
+        * high_participation
+        * (1.0 - eta_H)
+        * (1.0 - rho * verifier_tpr)
+        * unverified_harmful_weight
+    )
+    harmful_L = (
+        (1.0 - lambda_high)
+        * low_participation
+        * (1.0 - eta_L)
+        * (1.0 - rho * verifier_tpr)
+        * unverified_harmful_weight
+    )
+    helpfulness = (helpful_H + helpful_L) / (helpful_H + helpful_L + harmful_H + harmful_L)
+    return float(mass_H / total_mass), float(helpfulness)
+
+
 def build_policies(
     *,
     eta_H: float,

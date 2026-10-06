@@ -2,7 +2,7 @@
 
 Reproducibility package for a study of participation screening, costly verification, and preference-learning evidence in language-model feedback pipelines.
 
-This repository contains the processed OpenAssistant data, policy configurations, training and evaluation code, HPC submission scripts, aggregate results, and paper figures used in the experiments.
+This repository contains the processed OpenAssistant data, policy configurations, training and evaluation code, HPC submission scripts, aggregate results, mechanism-regime simulation, and paper figures used in the experiments.
 
 ## Main result
 
@@ -23,7 +23,7 @@ The direction is consistent across scales: oracle and normal screening improve h
 
 A verification-noise ablation shows that normal screening remains comparatively stable across verifier quality, whereas verified pooling degrades as verification becomes noisy.
 
-![Model-scale comparison](figures/scale_comparison.png)
+![Model-scale comparison](figures/fig_scale_comparison.png)
 
 ## Important scope
 
@@ -83,7 +83,8 @@ At a high level:
 2. Run the 0.5B five-policy matrix across seeds 42-51.
 3. Run the 1.5B confirmation across seeds 42-51.
 4. Run the four-level verification-noise ablation.
-5. Generate summaries and figures with scripts `11`-`16`.
+5. Run `scripts/16_plot_mechanism_regime.py` for the calibrated regime/composition figure.
+6. Generate paper figures with `scripts/17_make_paper_figures.py`.
 
 ## Result files
 
@@ -91,6 +92,7 @@ At a high level:
 - `results/scale/`: ten-seed 0.5B analysis
 - `results/confirm_1p5b/`: ten-seed 1.5B confirmation
 - `results/noise/`: verification-noise ablation
+- `results/mechanism/`: calibrated regime, participation, intensity, and composition simulation
 - `figures/`: paper-ready figures
 
 ## Citation

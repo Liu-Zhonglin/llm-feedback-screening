@@ -34,8 +34,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def make_type_figure(output_dir: Path) -> None:
-    contributor = pd.read_csv(ROOT / "pilot_results/types/contributor_types.csv")
-    summary = json.loads((ROOT / "pilot_results/types/summary.json").read_text(encoding="utf-8"))
+    contributor = pd.read_csv(ROOT / "results/types/contributor_types.csv")
+    summary = json.loads((ROOT / "results/types/summary.json").read_text(encoding="utf-8"))
     contributor = contributor.dropna(subset=["type_name"])
     fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.5))
     bins = np.linspace(0.0, 1.0, 16)
@@ -60,7 +60,7 @@ def make_type_figure(output_dir: Path) -> None:
 
 
 def make_scale_figure(output_dir: Path) -> None:
-    frame = pd.read_csv(ROOT / "pilot_results/scale_comparison/scale_delta_comparison.csv")
+    frame = pd.read_csv(ROOT / "results/scale/scale_delta_comparison.csv")
     order = ["oracle", "normal_screening", "pooling_verified", "pooling_unverified", "reverse_screening"]
     frame = frame.set_index("policy").reindex(order)
     x = np.arange(len(frame))
@@ -79,7 +79,7 @@ def make_scale_figure(output_dir: Path) -> None:
 
 
 def make_noise_figure(output_dir: Path) -> None:
-    frame = pd.read_csv(ROOT / "pilot_results/hpc_noise_300/hpc_noise_noise_summary.csv")
+    frame = pd.read_csv(ROOT / "results/noise/hpc_noise_noise_summary.csv")
     fig, ax = plt.subplots(figsize=(8.4, 3.8))
     for policy, label, color in (
         ("pooling_verified", "Verified pooling", "#d95f02"),
