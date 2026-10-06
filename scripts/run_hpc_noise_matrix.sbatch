@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=feedback-noise
-#SBATCH --account=math_amacl
+#SBATCH --account=YOUR_ACCOUNT
 #SBATCH --partition=l40s
 #SBATCH --qos=gpu
 #SBATCH --array=0-14%15

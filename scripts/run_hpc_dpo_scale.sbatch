@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=feedback-dpo-scale
-#SBATCH --account=math_amacl
+#SBATCH --account=YOUR_ACCOUNT
 #SBATCH --partition=l40s
 #SBATCH --qos=gpu
 #SBATCH --array=0-24%20

@@ -75,7 +75,7 @@ This downloads OpenAssistant `oasst1` through Hugging Face and creates:
 
 ## Reproducing the HPC experiments
 
-The full matrices were run on HKU HPC 2021 using L40S GPUs and SLURM arrays. See [docs/HPC.md](docs/HPC.md) for environment setup and exact submission commands.
+The full matrices were run on an institutional HPC cluster using L40S GPUs and SLURM arrays. See [docs/HPC.md](docs/HPC.md) for environment setup and exact submission commands.
 
 At a high level:
 

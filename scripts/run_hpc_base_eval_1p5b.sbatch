@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=feedback-base-1p5b
-#SBATCH --account=math_amacl
+#SBATCH --account=YOUR_ACCOUNT
 #SBATCH --partition=l40s
 #SBATCH --qos=debug
 #SBATCH --gres=gpu:1
@@ -11,7 +11,7 @@
 #SBATCH --error=logs/%x-%j.err
 
 set -euo pipefail
-cd /home/u3597461/revision3
+cd "${SLURM_SUBMIT_DIR:-$HOME/revision3}"
 source .venv/bin/activate
 export PYTHONPATH=src
 export HF_HOME="$PWD/.cache/huggingface"

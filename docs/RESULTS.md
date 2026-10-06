@@ -129,7 +129,7 @@ The next empirical iteration should use a more realistic harmful-feedback proces
 
 ## 7. HPC DPO pilot
 
-The first GPU-backed pilot used `Qwen/Qwen2.5-0.5B-Instruct` on HKU HPC L40S nodes. Each policy received 2,000 simulated feedback pairs and 300 normalized DPO steps. Harmful feedback inverted the observed preference pair, verification used `rho = 0.30`, `TPR = 0.80`, and `FPR = 0.10`, and unverified harmful feedback received weight 0.25.
+The first GPU-backed pilot used `Qwen/Qwen2.5-0.5B-Instruct` on institutional HPC L40S nodes. Each policy received 2,000 simulated feedback pairs and 300 normalized DPO steps. Harmful feedback inverted the observed preference pair, verification used `rho = 0.30`, `TPR = 0.80`, and `FPR = 0.10`, and unverified harmful feedback received weight 0.25.
 
 Three seeds were run for each policy. Every adapter was evaluated on the same clean held-out preference set.
 
@@ -160,7 +160,7 @@ Artifacts:
 
 ## 8. Ten-seed HPC scaling and verification-noise ablation
 
-The DPO pilot was scaled to ten seeds on HKU HPC L40S nodes using up to 20 concurrent array tasks.
+The DPO pilot was scaled to ten seeds on institutional HPC L40S nodes using up to 20 concurrent array tasks.
 
 | Policy | Mean accuracy | SD across seeds | Mean delta vs base | 95% CI for delta |
 |---|---:|---:|---:|---:|

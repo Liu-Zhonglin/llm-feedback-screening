@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=feedback-notify
-#SBATCH --account=math_amacl
+#SBATCH --account=YOUR_ACCOUNT
 #SBATCH --partition=intel
-#SBATCH --mail-user=u3597461@connect.hku.hk
+#SBATCH --mail-user=YOUR_EMAIL@example.com
 #SBATCH --mail-type=END,FAIL
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G

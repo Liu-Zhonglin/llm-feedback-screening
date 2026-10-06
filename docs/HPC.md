@@ -1,6 +1,6 @@
 # HPC Reproduction
 
-The final experiments used the HKU HPC 2021 cluster and L40S GPU nodes.
+The final experiments used the an institutional HPC cluster cluster and L40S GPU nodes.
 
 ## Environment
 
@@ -41,13 +41,7 @@ sbatch --array=0-24%20 \
 sbatch scripts/run_hpc_dpo_confirm_1p5b.sbatch
 ```
 
-The confirmation script runs seeds 42-44. The same array mechanism can be used for seeds 45-51 with:
-
-```bash
-sbatch --array=0-24%20 \
-  --export=ALL,CONFIG=configs/hpc_dpo_confirm_1p5b.yaml,OUTPUT_ROOT=results/raw/hpc_dpo_confirm_1p5b_300,STEPS=300,EXAMPLES=2000,SEED_START=45,N_SEEDS=5 \
-  scripts/run_hpc_dpo_scale.sbatch
-```
+The confirmation script runs the ten seeds 42-51 used in the paper.
 
 ## Verification noise
 
