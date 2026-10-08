@@ -1,0 +1,9 @@
+{
+  "eta_H": 0.5452653485952134,
+  "eta_L": 0.2730275229357798,
+  "eta_diff": 0.27223782565943355,
+  "test_contributors": 246,
+  "test_item_coverage": 0.16797302223842508,
+  "test_items": 3686,
+  "train_contributors": 982
+}

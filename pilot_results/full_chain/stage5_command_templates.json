@@ -1,0 +1,26 @@
+{
+  "endogenous_volume": [
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples {target} --max-steps 300"
+  ],
+  "equal_size": [
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300",
+    "python scripts/09_train_dpo_policy.py --policy {policy} --seed {seed} --max-train-examples 2000 --max-steps 300"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "eta_H": 0.4207843137254902,
+  "eta_L": 0.2742099898063201,
+  "eta_diff": 0.14657432391917008,
+  "test_contributors": 732,
+  "test_item_coverage": 0.8228851083663482,
+  "test_items": 3531,
+  "test_trees": 699,
+  "train_trees": 2793
+}

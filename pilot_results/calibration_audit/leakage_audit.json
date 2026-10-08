@@ -1,0 +1,14 @@
+{
+  "n_items": 21944,
+  "n_test_pairs": 800,
+  "n_train_pairs": 6221,
+  "pair_id_overlap_train_test": 0,
+  "pair_tree_overlap_train_test": 0,
+  "saved_test_matches_split": true,
+  "typed_item_coverage_test": 0.07291286912139992,
+  "typed_item_coverage_train": 0.5667608457892818,
+  "typed_items_in_test_pairs": 1600,
+  "typed_items_in_train_pairs": 12437,
+  "typed_tree_overlap_test": 349,
+  "typed_tree_overlap_train": 2784
+}
