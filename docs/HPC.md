@@ -72,6 +72,27 @@ ARRAY_JOB=$(sbatch --parsable scripts/run_hpc_stage5_combined.sbatch)
 sbatch --dependency=afterany:${ARRAY_JOB} scripts/notify_stage5_finished.sbatch
 ```
 
+## Volume-proportional confirmation
+
+The volume-proportional design processes one accepted-pool entry per policy-specific accepted target. Build the manifest and run the dry-run gate:
+
+```bash
+python scripts/22_build_volume_manifest.py \
+  --config configs/hpc_dpo_confirm_1p5b.yaml \
+  --pairs data/processed/oasst_preference_pairs.csv.gz \
+  --items data/processed/oasst_typed_items.csv.gz \
+  --stage5-manifest pilot_results/full_chain/stage5_experiment_manifest.csv \
+  --test-pairs data/processed/oasst_test_pairs.csv.gz \
+  --output pilot_results/volume_proportional/volume_manifest.csv \
+  --dry-run-report pilot_results/volume_proportional/dry_run_report.json
+```
+
+After the dry run passes, submit the volume-proportional array:
+
+```bash
+sbatch scripts/run_hpc_volume_proportional.sbatch
+```
+
 ## Verification noise
 
 ```bash

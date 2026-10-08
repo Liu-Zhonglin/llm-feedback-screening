@@ -1,0 +1,22 @@
+{
+  "effective_batch_size": 2,
+  "held_out_pairs": 800,
+  "manifest_rows": 50,
+  "optimizer_steps_by_policy": {
+    "normal_screening": 1000,
+    "oracle": 2292,
+    "pooling_unverified": 2292,
+    "pooling_verified": 1940,
+    "reverse_screening": 941
+  },
+  "pair_overlap_with_train": 0,
+  "processed_pair_budget_by_policy": {
+    "normal_screening": 2000,
+    "oracle": 4584,
+    "pooling_unverified": 4584,
+    "pooling_verified": 3880,
+    "reverse_screening": 1882
+  },
+  "status": "pass",
+  "tree_overlap_with_train": 0
+}

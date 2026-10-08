@@ -22,6 +22,17 @@ POLICY_TYPE_MODE = {
 }
 
 
+def optimizer_steps_for_examples(total_examples: int, batch_size: int) -> int:
+    """Return the number of full optimizer steps needed for a processed-example budget."""
+    total_examples = int(total_examples)
+    batch_size = int(batch_size)
+    if total_examples <= 0:
+        raise ValueError("total_examples must be positive")
+    if batch_size <= 0:
+        raise ValueError("batch_size must be positive")
+    return (total_examples + batch_size - 1) // batch_size
+
+
 def derive_policy_pairs(
     pairs: Any,
     item_table: Any,
@@ -118,8 +129,22 @@ def train_dpo_policy(
     *,
     output_dir: Path,
     seed: int,
-    max_steps: int,
+    max_steps: int | None = None,
+    max_examples: int | None = None,
 ) -> dict[str, Any]:
+    if (max_steps is None) == (max_examples is None):
+        raise ValueError("Exactly one of max_steps or max_examples must be provided.")
+
+    batch_size = int(config["model"]["batch_size"])
+    if max_examples is not None:
+        requested_processed_examples = int(max_examples)
+        planned_steps = optimizer_steps_for_examples(requested_processed_examples, batch_size)
+        stop_by_examples = True
+    else:
+        planned_steps = int(max_steps)
+        requested_processed_examples = planned_steps * batch_size
+        stop_by_examples = False
+
     torch.manual_seed(seed)
     np.random.seed(seed)
     model, tokenizer, device = build_model_and_tokenizer(config)
@@ -127,7 +152,7 @@ def train_dpo_policy(
     dataset = PreferenceDataset(train_frame, tokenizer, int(config["model"]["max_length"]))
     loader = DataLoader(
         dataset,
-        batch_size=int(config["model"]["batch_size"]),
+        batch_size=batch_size,
         shuffle=True,
         num_workers=int(config["model"].get("num_workers", 0)),
         collate_fn=DPODataCollator(int(tokenizer.pad_token_id)),
@@ -139,10 +164,12 @@ def train_dpo_policy(
     beta = float(config["model"]["beta"])
     model.train()
     step = 0
+    processed_examples = 0
     history = []
-    while step < max_steps:
+    while step < planned_steps:
         for batch in loader:
             batch = move_batch(batch, device)
+            processed_examples += int(batch["chosen"].shape[0])
             chosen = sequence_log_prob(model, batch["chosen"], normalize=True)
             rejected = sequence_log_prob(model, batch["rejected"], normalize=True)
             with torch.no_grad(), model.disable_adapter():
@@ -160,15 +187,23 @@ def train_dpo_policy(
                 history.append({"step": step, "loss": float(loss.detach().cpu())})
                 print(f"step={step} loss={float(loss.detach().cpu()):.4f}", flush=True)
             step += 1
-            if step >= max_steps:
+            if stop_by_examples and processed_examples >= requested_processed_examples:
                 break
+            if step >= planned_steps:
+                break
+        if stop_by_examples and processed_examples >= requested_processed_examples:
+            break
     output_dir.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(output_dir / "adapter")
     tokenizer.save_pretrained(output_dir / "adapter")
     return {
         "device": str(device),
         "seed": seed,
-        "max_steps": max_steps,
+        "max_steps": planned_steps,
+        "optimizer_steps": step,
+        "effective_batch_size": batch_size,
+        "requested_processed_examples": requested_processed_examples,
+        "processed_examples": processed_examples,
         "train_examples": len(train_frame),
         "history": history,
     }

@@ -84,10 +84,11 @@ At a high level:
 
 1. Prepare processed data.
 2. Run the 0.5B five-policy matrix across seeds 42-51.
-3. Run the Stage 5 1.5B confirmation across equal-size and endogenous-volume designs with `scripts/run_hpc_stage5_combined.sbatch`.
-4. Run the four-level verification-noise ablation.
-5. Run `scripts/16_plot_mechanism_regime.py` for the calibrated regime/composition figure.
-6. Generate paper figures with `scripts/17_make_paper_figures.py`.
+3. Run the Stage 5 1.5B confirmation across equal-size and policy-specific-pool designs with `scripts/run_hpc_stage5_combined.sbatch`.
+4. Run the volume-proportional confirmation with `scripts/run_hpc_volume_proportional.sbatch` after generating its manifest.
+5. Run the four-level verification-noise ablation.
+6. Run `scripts/16_plot_mechanism_regime.py` for the calibrated regime/composition figure.
+7. Generate paper figures with `scripts/17_make_paper_figures.py`.
 
 ## Result files
 
@@ -95,7 +96,8 @@ At a high level:
 - `results/scale/`: ten-seed 0.5B analysis
 - `results/confirm_1p5b/`: earlier ten-seed 1.5B equal-size confirmation
 - `results/stage5/equal_size/`: final ten-seed 1.5B equal-size analysis
-- `results/stage5/endogenous/`: final ten-seed 1.5B endogenous-volume analysis
+- `results/stage5/endogenous/`: final ten-seed 1.5B policy-specific-pool analysis (legacy artifact name)
+- `pilot_results/volume_proportional/`: preregistered volume-proportional manifest and dry-run report
 - `docs/STAGE5_CONFIRMATION.md`: concise final confirmation report
 - `results/noise/`: verification-noise ablation
 - `results/mechanism/`: calibrated regime, participation, intensity, and composition simulation

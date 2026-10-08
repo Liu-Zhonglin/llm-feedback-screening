@@ -71,7 +71,7 @@ def make_scale_figure(output_dir: Path) -> None:
     series = {
         "0.5B": scale["0.5B"].to_numpy(),
         "1.5B equal-size": equal["mean_delta_pp"].to_numpy(),
-        "1.5B endogenous-volume": endogenous["mean_delta_pp"].to_numpy(),
+        "1.5B policy-specific pool": endogenous["mean_delta_pp"].to_numpy(),
     }
     colors = ["#9ecae1", "#3182bd", "#fdae6b"]
     x = np.arange(len(order))

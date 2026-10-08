@@ -1,6 +1,6 @@
 import pandas as pd
 
-from revision3.dpo_policy import derive_policy_pairs
+from revision3.dpo_policy import derive_policy_pairs, optimizer_steps_for_examples
 
 
 def _config():
@@ -46,3 +46,18 @@ def test_reverse_screening_flips_low_type_preferences() -> None:
     assert (feedback["chosen"] == "worse").all()
     assert (feedback["rejected"] == "better").all()
     assert (feedback["weight"] == 0.25).all()
+
+
+def test_optimizer_steps_for_example_budget() -> None:
+    assert optimizer_steps_for_examples(2000, 2) == 1000
+    assert optimizer_steps_for_examples(1882, 2) == 941
+    assert optimizer_steps_for_examples(2001, 2) == 1001
+
+
+def test_optimizer_steps_reject_invalid_inputs() -> None:
+    import pytest
+
+    with pytest.raises(ValueError):
+        optimizer_steps_for_examples(0, 2)
+    with pytest.raises(ValueError):
+        optimizer_steps_for_examples(10, 0)

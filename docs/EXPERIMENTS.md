@@ -39,7 +39,7 @@ The pilot uses `Qwen/Qwen2.5-0.5B-Instruct`; confirmation uses `Qwen/Qwen2.5-1.5
 - batch size 2;
 - 2,000 accepted pairs in the equal-size design, policy-specific accepted volumes in the endogenous-volume design, and 300 optimizer steps per run.
 
-We train ten seeds (`42`-`51`) for every policy at both scales and in both accepted-pool designs.
+We train ten seeds (`42`-`51`) for every policy at both scales. The existing accepted-pool comparison uses a matched 600-processed-pair optimization budget. The volume-proportional design instead processes one accepted-pool entry per policy-specific accepted target and is described in `docs/VOLUME_PROPORTIONAL_PROTOCOL.md`.
 
 ## Evaluation
 

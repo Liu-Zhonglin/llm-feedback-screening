@@ -26,7 +26,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--policy", required=True)
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--max-train-examples", type=int, default=None)
-    parser.add_argument("--max-steps", type=int, default=None)
+    budget = parser.add_mutually_exclusive_group()
+    budget.add_argument("--max-steps", type=int, default=None)
+    budget.add_argument("--max-examples", type=int, default=None)
     parser.add_argument("--output-dir", required=True)
     return parser.parse_args()
 
@@ -48,7 +50,7 @@ def main() -> None:
     validation.to_csv(output_dir / "validation_pairs.csv", index=False)
     test.to_csv(output_dir / "test_pairs.csv", index=False)
     n_examples = args.max_train_examples or int(config["model"]["max_train_examples"])
-    max_steps = args.max_steps or int(config["model"]["max_steps"])
+    max_steps = None if args.max_examples is not None else (args.max_steps or int(config["model"]["max_steps"]))
     feedback = derive_policy_pairs(
         train,
         items,
@@ -64,6 +66,7 @@ def main() -> None:
         output_dir=output_dir,
         seed=args.seed,
         max_steps=max_steps,
+        max_examples=args.max_examples,
     )
     metrics.update(
         {
@@ -73,6 +76,11 @@ def main() -> None:
             "verified_share": float(feedback["verified"].mean()),
             "mean_weight": float(feedback["weight"].mean()),
             "high_type_share": float((feedback["type_name"] == "H").mean()),
+            "accepted_pool_size": int(len(feedback)),
+            "distinct_pair_count": int(feedback["pair_id"].nunique()),
+            "distinct_tree_count": int(feedback["tree_id"].nunique()),
+            "sampling_rule": "with_replacement",
+            "processed_pair_budget": int(metrics["requested_processed_examples"]),
         }
     )
     (output_dir / "metrics.json").write_text(
