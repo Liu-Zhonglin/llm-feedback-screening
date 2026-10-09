@@ -102,6 +102,7 @@ At a high level:
 - `pilot_results/volume_proportional/`: preregistered volume-proportional manifest and dry-run report
 - `results/stage3/`: completed volume-proportional sensitivity results
 - `docs/STAGE5_CONFIRMATION.md`: concise final confirmation report
+- `docs/CALIBRATION_ROBUSTNESS.md`: calibration and boundary sensitivity summary
 - `results/noise/`: verification-noise ablation
 - `results/mechanism/`: calibrated regime, participation, intensity, and composition simulation
 - `figures/`: paper-ready figures

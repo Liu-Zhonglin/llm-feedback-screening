@@ -20,7 +20,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--items", required=True, help="Full extracted feedback items CSV")
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--bootstrap-repetitions", type=int, default=500)
+    parser.add_argument("--bootstrap-repetitions", type=int, default=100)
     return parser.parse_args()
 
 

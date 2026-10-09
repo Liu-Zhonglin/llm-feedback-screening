@@ -270,3 +270,25 @@ Artifacts:
 - `results/stage3/volume_proportional/policy_summary.csv`
 - `results/stage3/volume_proportional/paired_comparisons.csv`
 - `docs/VOLUME_PROPORTIONAL_RESULTS.md`
+
+
+## 14. Calibration and boundary robustness
+
+The reliability ordering is preserved across 80 calibration specifications. Separation ranges from 0.193 to 0.263 and the critical exposure ratio from 1.369 to 1.560. Tree-level leave-one-out, contributor-fold transfer, and held-out-tree transfer all preserve the ordering.
+
+Boundary uncertainty from 100 contributor-level bootstrap resamples:
+
+| Bootstrap unit | 95% critical-ratio interval |
+|---|---:|
+| Fixed estimated types | [1.492, 1.635] |
+| Mixture refit on each resample | [1.533, 1.705] |
+
+The type-refit interval is conservative because it includes type-assignment uncertainty. Neither interval identifies the unobserved exposure ratio. Continuous reliability sensitivity preserves the same qualitative direction: increasing exposure selects lower-quality contributors, whereas constant or decreasing exposure selects higher-quality contributors.
+
+Artifacts:
+
+- `docs/CALIBRATION_ROBUSTNESS.md`
+- `pilot_results/calibration_audit/calibration_variants.csv`
+- `pilot_results/calibration_audit/tree_transfer.json`
+- `pilot_results/boundary_sensitivity/boundary_summary.json`
+- `pilot_results/boundary_sensitivity/continuous_sensitivity.csv`

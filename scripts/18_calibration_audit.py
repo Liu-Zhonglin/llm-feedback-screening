@@ -25,7 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--test-pairs", required=True, help="Held-out preference pairs CSV/gzip")
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--bootstrap-repetitions", type=int, default=200)
+    parser.add_argument("--bootstrap-repetitions", type=int, default=100)
     return parser.parse_args()
 
 
