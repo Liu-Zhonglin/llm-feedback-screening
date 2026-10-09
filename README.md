@@ -22,7 +22,9 @@ Mean held-out preference-accuracy change relative to the same-scale base model:
 | Reverse screening | -0.46 pp | -0.08 pp | -0.01 pp |
 | Same-scale base model | 69.75% | 70.125% | 70.125% |
 
-The direction is stable across scales and accepted-pool designs: oracle and normal screening improve held-out preference accuracy over base, while reverse screening does not. Normal screening beats reverse screening by about 0.8 pp with a 95\% confidence interval excluding zero in both 1.5B designs.
+The direction is stable across scales and accepted-pool designs: oracle and normal screening improve held-out preference accuracy over base, while reverse screening does not. Normal screening beats reverse screening by about 0.8 pp with a 95\% confidence interval excluding zero in both matched-budget 1.5B designs.
+
+A volume-proportional sensitivity preserves the direction but is not statistically distinguishable: normal screening beats reverse by 0.55 pp, 95\% CI [-0.10, 1.20], while oracle improves by 3.49 pp. See `docs/VOLUME_PROPORTIONAL_RESULTS.md`.
 
 A verification-noise ablation shows that normal screening remains comparatively stable across verifier quality, whereas verified pooling degrades as verification becomes noisy.
 
@@ -98,6 +100,7 @@ At a high level:
 - `results/stage5/equal_size/`: final ten-seed 1.5B equal-size analysis
 - `results/stage5/endogenous/`: final ten-seed 1.5B policy-specific-pool analysis (legacy artifact name)
 - `pilot_results/volume_proportional/`: preregistered volume-proportional manifest and dry-run report
+- `results/stage3/`: completed volume-proportional sensitivity results
 - `docs/STAGE5_CONFIRMATION.md`: concise final confirmation report
 - `results/noise/`: verification-noise ablation
 - `results/mechanism/`: calibrated regime, participation, intensity, and composition simulation

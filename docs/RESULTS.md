@@ -249,3 +249,24 @@ Artifacts:
 - `results/stage5/endogenous/paired_comparisons.csv`
 - `results/stage5/mode_policy_seed.csv`
 - `figures/fig_scale_comparison.png`
+
+
+## 13. Volume-proportional sensitivity
+
+The volume-proportional design processes one accepted-pool entry per policy. The run completed 50/50 policy-seed combinations with validated budgets.
+
+| Policy | Mean accuracy | Delta vs base | 95% CI |
+|---|---:|---:|---:|
+| Oracle | 73.61% | +3.49 pp | [2.90, 4.08] |
+| Normal screening | 70.73% | +0.60 pp | [-0.09, 1.29] |
+| Unverified pooling | 70.23% | +0.10 pp | [-0.37, 0.57] |
+| Reverse screening | 70.18% | +0.05 pp | [-0.19, 0.29] |
+| Verified pooling | 70.05% | -0.08 pp | [-1.15, 1.00] |
+
+Normal screening minus reverse screening is +0.55 pp with a 95% CI of [-0.10, 1.20], favoring normal in 6/10 seeds. The direction is preserved but the gap is not statistically distinguishable. The matched-budget designs remain the primary learning evidence.
+
+Artifacts:
+
+- `results/stage3/volume_proportional/policy_summary.csv`
+- `results/stage3/volume_proportional/paired_comparisons.csv`
+- `docs/VOLUME_PROPORTIONAL_RESULTS.md`

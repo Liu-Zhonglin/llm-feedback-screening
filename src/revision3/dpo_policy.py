@@ -33,6 +33,14 @@ def optimizer_steps_for_examples(total_examples: int, batch_size: int) -> int:
     return (total_examples + batch_size - 1) // batch_size
 
 
+def processed_batch_size(batch: dict[str, Any]) -> int:
+    """Return the number of examples in a collated DPO batch."""
+    weights = batch.get("weights")
+    if not hasattr(weights, "numel"):
+        raise TypeError("DPO batch is missing a tensor-valued weights field")
+    return int(weights.numel())
+
+
 def derive_policy_pairs(
     pairs: Any,
     item_table: Any,
@@ -169,7 +177,7 @@ def train_dpo_policy(
     while step < planned_steps:
         for batch in loader:
             batch = move_batch(batch, device)
-            processed_examples += int(batch["chosen"].shape[0])
+            processed_examples += processed_batch_size(batch)
             chosen = sequence_log_prob(model, batch["chosen"], normalize=True)
             rejected = sequence_log_prob(model, batch["rejected"], normalize=True)
             with torch.no_grad(), model.disable_adapter():
